@@ -1,0 +1,119 @@
+package MVC.Controller.QLPK;
+
+	import MVC.View.QLPK.ReportView;
+	import MVC.Model.QLPK.ReportModel;
+
+	import javax.swing.*;
+	import java.sql.*;
+	import java.text.NumberFormat;
+	import java.util.Locale;
+
+	public class ReportController {
+	    private Connection connection;
+	    private ReportView view;
+
+	    public ReportController(ReportView view) throws SQLException, ClassNotFoundException {
+	        this.view = view;
+
+	        // Initialize database connection
+	        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	        String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyPhongKham;encrypt=true;trustServerCertificate=true";
+	        String username = "sa";
+	        String pass = "Phucthan@2004";
+	        connection = DriverManager.getConnection(url, username, pass);
+
+	        view.searchButton.addActionListener(e -> generateReport());
+	    }
+
+	    private void generateReport() {
+	        String selectedReport = (String) view.reportTypeBox.getSelectedItem();
+	        try {
+	            if ("Revenue Report".equals(selectedReport)) {
+	                long revenue = getRevenueReport();
+	                view.resultField.setText(formatCurrency(revenue));
+	            } else if ("Expense Report".equals(selectedReport)) {
+	                long expense = getExpenseReport();
+	                view.resultField.setText(formatCurrency(expense));
+	            } else if ("Profit Report".equals(selectedReport)) {
+	                long revenue = getRevenueReport();
+	                long expense = getExpenseReport();
+	                view.resultField.setText(formatCurrency(revenue - expense));
+	            } else if ("Human Resource Report".equals(selectedReport)) {
+	                int humanResources = getHumanResourceReport();
+	                view.resultField.setText(String.valueOf(humanResources));
+	            }
+	        } catch (SQLException ex) {
+	            JOptionPane.showMessageDialog(view, "An error occurred while generating the report.");
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    private long getRevenueReport() throws SQLException {
+	        String query = "SELECT SUM(soTienThanhToan) AS totalRevenue FROM Invoice";
+	        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+	            if (rs.next()) {
+	                return rs.getLong("totalRevenue");
+	            }
+	        }
+	        return 0;
+	    }
+
+	    private long getExpenseReport() throws SQLException {
+	        String queryDoctor = "SELECT SUM(luong) AS totalDoctorSalary FROM Doctor";
+	        String queryEmployee = "SELECT SUM(luong) AS totalEmployeeSalary FROM Employee";
+	        String queryEquipment = "SELECT SUM(giaTien) AS totalEquipmentCost FROM Equipment";
+
+	        int totalExpense = 0;
+	        try (Statement stmt = connection.createStatement()) {
+	            try (ResultSet rs = stmt.executeQuery(queryDoctor)) {
+	                if (rs.next()) {
+	                    totalExpense += rs.getLong("totalDoctorSalary");
+	                }
+	            }
+	            try (ResultSet rs = stmt.executeQuery(queryEmployee)) {
+	                if (rs.next()) {
+	                    totalExpense += rs.getLong("totalEmployeeSalary");
+	                }
+	            }
+	            try (ResultSet rs = stmt.executeQuery(queryEquipment)) {
+	                if (rs.next()) {
+	                    totalExpense += rs.getLong("totalEquipmentCost");
+	                }
+	            }
+	        }
+	        return totalExpense;
+	    }
+
+	    private int getHumanResourceReport() throws SQLException {
+	        String queryDoctor = "SELECT COUNT(*) AS doctorCount FROM Doctor";
+	        String queryEmployee = "SELECT COUNT(*) AS employeeCount FROM Employee";
+
+	        int totalHumanResources = 0;
+	        try (Statement stmt = connection.createStatement()) {
+	            try (ResultSet rs = stmt.executeQuery(queryDoctor)) {
+	                if (rs.next()) {
+	                    totalHumanResources += rs.getInt("doctorCount");
+	                }
+	            }
+	            try (ResultSet rs = stmt.executeQuery(queryEmployee)) {
+	                if (rs.next()) {
+	                    totalHumanResources += rs.getInt("employeeCount");
+	                }
+	            }
+	        }
+	        return totalHumanResources;
+	    }
+
+	    private String formatCurrency(long amount) {
+	        return NumberFormat.getNumberInstance(Locale.US).format(amount);
+	    }
+
+	    public static void main(String[] args) {
+	        try {
+	            ReportView view = new ReportView();
+	            new ReportController(view);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}

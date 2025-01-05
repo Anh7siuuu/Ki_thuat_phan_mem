@@ -1,0 +1,48 @@
+package MVC.Controller.QLPK;
+
+import MVC.View.QLPK.MainView;
+import MVC.View.QLPK.DoctorManagementView;
+import MVC.View.QLPK.EmployeeManagementView;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainController {
+    private MainView mainView;
+
+    public MainController(MainView mainView) {
+        this.mainView = mainView;
+        initController();
+    }
+
+    private void initController() {
+        mainView.addDoctorManagementListener(e -> openDoctorManagementView());
+        mainView.addEmployeeManagementListener(e -> openEmployeeManagementView());
+        mainView.addReportListener(e -> openReportView());
+        mainView.addPermissionManagementListener(e -> openPermissionManagementView());
+    }
+
+    private void openDoctorManagementView() {
+        DoctorManagementView doctorView = new DoctorManagementView();
+        doctorView.setVisible(true);
+    }
+
+    private void openEmployeeManagementView() {
+        EmployeeManagementView employeeView = new EmployeeManagementView();
+        employeeView.setVisible(true);
+    }
+
+    private void openReportView() {
+        JOptionPane.showMessageDialog(mainView, "Report View will be implemented soon!", "Report", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void openPermissionManagementView() {
+        JOptionPane.showMessageDialog(mainView, "Permission Management View will be implemented soon!", "Permission Management", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        MainView mainView = new MainView();
+        new MainController(mainView);
+    }
+}

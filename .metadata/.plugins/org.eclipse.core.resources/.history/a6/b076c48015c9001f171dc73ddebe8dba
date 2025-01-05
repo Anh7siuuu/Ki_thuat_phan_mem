@@ -1,0 +1,89 @@
+package MVC.View.QLPK;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class PermissionView extends JFrame {
+    public JComboBox<String> permissionBox;
+    public JTextField permissionIDField;
+    public JTextField permissionNameField;
+    public JTextField permissionUsageField;
+    public JButton addButton;
+    public JButton editButton;
+    public JButton deleteButton;
+    public JButton assignButton;
+    public JButton returnButton; // Added return button
+
+    public PermissionView() {
+        setTitle("Permission Management");
+        setSize(900, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container contentPane = getContentPane();
+        contentPane.setLayout(null);
+
+        JLabel permissionBoxLabel = new JLabel("Permissions:");
+        permissionBoxLabel.setLocation(30, 50);
+        permissionBoxLabel.setSize(100, 30);
+        permissionBox = new JComboBox<>();
+        permissionBox.setLocation(140, 50);
+        permissionBox.setSize(200, 30);
+
+        JLabel permissionIDLabel = new JLabel("Permission ID:");
+        permissionIDLabel.setLocation(30, 100);
+        permissionIDLabel.setSize(100, 30);
+        permissionIDField = new JTextField();
+        permissionIDField.setLocation(140, 100);
+        permissionIDField.setSize(200, 30);
+
+        JLabel permissionNameLabel = new JLabel("Permission Name:");
+        permissionNameLabel.setLocation(30, 150);
+        permissionNameLabel.setSize(130, 30);
+        permissionNameField = new JTextField();
+        permissionNameField.setLocation(170, 150);
+        permissionNameField.setSize(200, 30);
+
+        JLabel permissionUsageLabel = new JLabel("Permission Usage:");
+        permissionUsageLabel.setLocation(30, 200);
+        permissionUsageLabel.setSize(130, 30);
+        permissionUsageField = new JTextField();
+        permissionUsageField.setLocation(170, 200);
+        permissionUsageField.setSize(200, 30);
+
+        addButton = new JButton("Add");
+        addButton.setLocation(30, 300);
+        addButton.setSize(100, 50);
+
+        editButton = new JButton("Edit");
+        editButton.setLocation(140, 300);
+        editButton.setSize(100, 50);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.setLocation(250, 300);
+        deleteButton.setSize(100, 50);
+
+        assignButton = new JButton("Assign Permissions");
+        assignButton.setLocation(360, 300);
+        assignButton.setSize(200, 50);
+        
+        returnButton = new JButton("Return"); // Added Return button
+        assignButton.setLocation(470, 300);
+        assignButton.setSize(100,50);
+
+        contentPane.add(permissionBoxLabel);
+        contentPane.add(permissionBox);
+        contentPane.add(permissionIDLabel);
+        contentPane.add(permissionIDField);
+        contentPane.add(permissionNameLabel);
+        contentPane.add(permissionNameField);
+        contentPane.add(permissionUsageLabel);
+        contentPane.add(permissionUsageField);
+        contentPane.add(addButton);
+        contentPane.add(editButton);
+        contentPane.add(deleteButton);
+        contentPane.add(assignButton);
+        contentPane.add(returnButton); // Add the return button to the panel
+
+        setVisible(true);
+    }
+}
+

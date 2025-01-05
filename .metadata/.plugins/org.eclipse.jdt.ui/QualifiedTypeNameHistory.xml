@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="husc.edu.vn.model.Database"/>
+    <fullyQualifiedTypeName name="MVC.View.QLPK.DoctorManagementView"/>
+    <fullyQualifiedTypeName name="MVC.View.QLPK.MedicalRecordManagementView"/>
+</qualifiedTypeNameHistroy>

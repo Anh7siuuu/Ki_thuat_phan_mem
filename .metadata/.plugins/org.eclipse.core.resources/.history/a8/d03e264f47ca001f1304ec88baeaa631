@@ -1,0 +1,49 @@
+package MVC.Controller.QLPK;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import MVC.View.QLPK.EmployeeMainView;
+import MVC.Model.QLPK.LoginModel; 
+import MVC.View.QLPK.LoginView;
+
+class LoginController {
+    private LoginModel model;
+    private LoginView view;
+
+    public LoginController(LoginModel model, LoginView view) {
+        this.model = model;
+        this.view = view;
+
+        this.view.loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = view.getUsername();
+                String password = view.getPassword();
+                String result = model.authenticateUser(username, password);
+
+                switch (result) {
+                    case "Employee":
+                        view.setVisible(false);
+                        new EmployeeMainView().setVisible(true);
+                        break;
+                    case "Doctor":
+                        view.setVisible(false);
+                        new DoctorMainView().setVisible(true);
+                        break;
+                    default:
+                        view.setStatus("Invalid username or password");
+                }
+            }
+        });
+    }
+}
+
+// Main Application
+public class LoginApp {
+    public static void main(String[] args) {
+        LoginModel model = new LoginModel();
+        LoginView view = new LoginView();
+        new LoginController(model, view);
+        view.setVisible(true);
+    }
+}

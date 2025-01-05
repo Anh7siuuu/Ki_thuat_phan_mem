@@ -1,0 +1,87 @@
+package MVC.Controller.QLPK;
+
+	import java.sql.SQLException;
+
+	import MVC.View.QLPK.MainView;
+	import MVC.View.QLPK.DoctorManagementView;
+	import MVC.View.QLPK.EmployeeManagementView;
+	import MVC.View.QLPK.ReportView;
+	import MVC.View.QLPK.PermissionView;
+
+	public class MainController {
+	    private MainView mainView;
+
+	    public MainController(MainView mainView) {
+	        this.mainView = mainView;
+	        initController();
+	    }
+
+	    private void initController() {
+
+	        // Listener cho nút Quản lý bác sĩ
+	        mainView.addDoctorManagementListener(e -> {
+	            try {
+	                openDoctorManagementView();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        });
+
+	        // Listener cho nút Quản lý nhân viên
+	        mainView.addEmployeeManagementListener(e -> {
+	            try {
+	                openEmployeeManagementView();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        });
+
+	        // Listener cho nút Báo cáo
+	        mainView.addReportListener(e -> {
+	            try {
+	                openReportView();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        });
+
+	        // Listener cho nút Quản lý quyền
+	        mainView.addPermissionManagementListener(e -> {
+	            try {
+	                openPermissionManagementView();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        });
+	    }
+
+	    private void openDoctorManagementView() throws SQLException {
+	        MVC.View.QLPK.DoctorManagementView doctorView = new DoctorManagementView();
+	        new DoctorManagementController(doctorView); // Khởi tạo controller cho giao diện quản lý bác sĩ
+	        doctorView.setVisible(true);
+	    }
+
+	    private void openEmployeeManagementView() throws SQLException {
+	        MVC.View.QLPK.EmployeeManagementView employeeView = new EmployeeManagementView();
+	        new EmployeeManagementController(employeeView); // Khởi tạo controller cho giao diện quản lý nhân viên
+	        employeeView.setVisible(true);
+	    }
+
+	    private void openReportView() throws SQLException {
+	        MVC.View.QLPK.ReportView reportView = new ReportView();
+	        new ReportController(reportView); // Khởi tạo controller cho giao diện báo cáo
+	        reportView.setVisible(true);
+	    }
+
+	    private void openPermissionManagementView() throws SQLException {
+	        MVC.View.QLPK.PermissionView permissionView = new PermissionView();
+	        new PermissionController(permissionView); // Khởi tạo controller cho giao diện quản lý quyền
+	        permissionView.setVisible(true);
+	    }
+
+	    public static void main(String[] args) {
+	        MainView mainView = new MainView();
+	        new MainController(mainView);
+	    }
+	}
+}

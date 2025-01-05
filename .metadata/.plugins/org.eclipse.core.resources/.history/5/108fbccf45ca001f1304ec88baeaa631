@@ -1,0 +1,60 @@
+package MVC.View.QLPK;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import MVC.Controller.QLPK.LoginController;
+
+public class LoginView extends JFrame {
+    private JTextField txtUsername;
+    private JPasswordField txtPassword;
+    private JButton btnLogin;
+    private JLabel lblErrorMessage;
+    private LoginController loginController;
+
+    public LoginView(LoginController loginController) {
+        this.loginController = loginController;
+        setTitle("Login");
+        setLayout(new BorderLayout());
+
+        // Panel cho các trường nhập liệu
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 2));
+
+        JLabel lblUsername = new JLabel("Tài khoản:");
+        txtUsername = new JTextField();
+        JLabel lblPassword = new JLabel("Mật khẩu:");
+        txtPassword = new JPasswordField();
+        btnLogin = new JButton("Đăng nhập");
+        lblErrorMessage = new JLabel("", JLabel.CENTER);
+        lblErrorMessage.setForeground(Color.RED);
+
+        panel.add(lblUsername);
+        panel.add(txtUsername);
+        panel.add(lblPassword);
+        panel.add(txtPassword);
+        panel.add(btnLogin);
+
+        add(panel, BorderLayout.CENTER);
+        add(lblErrorMessage, BorderLayout.SOUTH);
+
+        // Sự kiện cho nút đăng nhập
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = txtUsername.getText();
+                String password = new String(txtPassword.getPassword());
+                loginController.handleLogin(username, password);
+            }
+        });
+
+        setSize(300, 150);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+
+    public void showErrorMessage(String message) {
+        lblErrorMessage.setText(message);
+    }
+}

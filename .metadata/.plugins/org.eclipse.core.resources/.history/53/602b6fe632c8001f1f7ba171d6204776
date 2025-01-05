@@ -1,0 +1,58 @@
+package MVC.Controller.QLPK;
+
+import java.sql.SQLException;
+import MVC.View.QLPK.MainView;
+import MVC.View.QLPK.DoctorManagementView;
+import MVC.View.QLPK.EmployeeManagementView;
+import MVC.View.QLPK.PermissionView;
+import MVC.View.QLPK.ReportView;
+public class MainController {
+      private MainView mainView;
+      public MainController(MainView mainView) {
+          this.mainView = mainView;
+          initController();
+      }
+      
+      private void initController() {
+          mainView.addDoctorManagementListener(e -> {
+  			try {
+  				openDoctorManagementView();
+  				openEmployeeManagementView();
+  				openPermissionView();
+  				openReportView();
+  			} catch (ClassNotFoundException e1) {
+  				// TODO Auto-generated catch block
+  				e1.printStackTrace();
+  			} catch (SQLException e1) {
+  				// TODO Auto-generated catch block
+  				e1.printStackTrace();
+  			}
+  		});
+      }
+      
+      private void openDoctorManagementView() throws ClassNotFoundException, SQLException {
+    	  MVC.View.QLPK.DoctorManagementView  doctorManagementView = new DoctorManagementView();
+    	  new DoctorManagementController(doctorManagementView);
+    	  doctorManagementView.setVisible(true);
+      }
+      
+      private void openEmployeeManagementView() throws ClassNotFoundException, SQLException {
+    	  MVC.View.QLPK.EmployeeManagementView  employeeManagementView = new EmployeeManagementView();
+    	  new EmployeeManagementController(employeeManagementView);
+    	  employeeManagementView.setVisible(true);
+      }
+    	  
+      private void openPermissionView() throws ClassNotFoundException, SQLException {
+          MVC.View.QLPK.PermissionView  permissionView = new PermissionView();
+          new PermissionController (permissionView);
+          permissionView.setVisible(true);
+      }
+      
+      private void openReportView() throws ClassNotFoundException, SQLException {
+          MVC.View.QLPK.ReportView  reportView = new ReportView();
+          new ReportController(reportView);
+          reportView.setVisible(true);
+      }
+    	  
+      
+}

@@ -1,0 +1,43 @@
+package MVC.View.QLPK;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class PermissionView extends JFrame {
+    public JComboBox<String> permissionBox;
+    public JTextField permissionIDField, permissionNameField, permissionUsageField;
+    public JButton addButton, editButton, deleteButton, assignButton, returnButton;
+
+    public PermissionView() {
+        setTitle("Permission Management");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new GridLayout(6, 2));
+
+        // Initialize components
+        permissionBox = new JComboBox<>();
+        permissionIDField = new JTextField();
+        permissionNameField = new JTextField();
+        permissionUsageField = new JTextField();
+        addButton = new JButton("Add");
+        editButton = new JButton("Edit");
+        deleteButton = new JButton("Delete");
+        assignButton = new JButton("Assign");
+        returnButton = new JButton("Return"); // New Return Button
+
+        // Add components to the frame
+        add(new JLabel("Permission:"));
+        add(permissionBox);
+        add(new JLabel("Permission ID:"));
+        add(permissionIDField);
+        add(new JLabel("Permission Name:"));
+        add(permissionNameField);
+        add(new JLabel("Permission Usage:"));
+        add(permissionUsageField);
+        add(addButton);
+        add(editButton);
+        add(deleteButton);
+        add(assignButton);
+        add(returnButton); // Add Return Button
+    }
+}

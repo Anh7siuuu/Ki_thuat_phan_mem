@@ -1,0 +1,125 @@
+package MVC.Controller.QLPK;
+
+import MVC.View.QLPK.EquipmentManagementView;
+import MVC.Model.QLPK.EquipmentManagementModel;
+
+import javax.swing.*;
+import java.sql.*;
+import java.text.DecimalFormat;
+
+public class EquipmentManagementController {
+    private Connection connection;
+    private EquipmentManagementView view;
+
+    public EquipmentManagementController(EquipmentManagementView view) throws SQLException, ClassNotFoundException {
+        this.view = view;
+
+        // Kết nối cơ sở dữ liệu
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyPhongKham;encrypt=true;trustServerCertificate=true";
+        String username = "sa";
+        String password = "Phucthan@2004";
+        connection = DriverManager.getConnection(url, username, password);
+
+        // Gắn hành động vào các nút
+        view.searchButton.addActionListener(e -> searchEquipment());
+        view.addButton.addActionListener(e -> addEquipment());
+    }
+
+    // Tìm kiếm vật tư
+    private void searchEquipment() {
+        String maVatTu = view.equipmentIDField.getText().trim();
+        String tenVatTu = view.equipmentNameField.getText().trim();
+
+        if (!maVatTu.isEmpty() || !tenVatTu.isEmpty()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM Equipment WHERE maVatTu = ? OR tenVatTu LIKE ?")) {
+                preparedStatement.setString(1, maVatTu);
+                preparedStatement.setString(2, "%" + tenVatTu + "%");
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    view.equipmentIDField.setText(resultSet.getString("maVatTu"));
+                    view.equipmentNameField.setText(resultSet.getString("tenVatTu"));
+
+                    // Định dạng giá tiền với dấu phẩy
+                    int giaTien = resultSet.getInt("giaTien");
+                    DecimalFormat formatter = new DecimalFormat("#,###");
+                    view.priceField.setText(formatter.format(giaTien));
+
+                    view.equipmentStatusField.setText(resultSet.getString("tinhTrangThietBi"));
+                    view.dateOfExpireField.setText(resultSet.getString("hanSuDung"));
+                    view.stockInDateField.setText(resultSet.getString("ngayNhapKho"));
+                    view.supplierField.setText(resultSet.getString("nhaCungCap"));
+                } else {
+                    JOptionPane.showMessageDialog(view, "Không tìm thấy vật tư phù hợp.");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(view, "Lỗi khi tìm kiếm vật tư: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(view, "Vui lòng nhập mã vật tư hoặc tên vật tư để tìm kiếm.");
+        }
+    }
+
+    // Thêm vật tư
+    private void addEquipment() {
+        try {
+            String maVatTu = view.equipmentIDField.getText().trim();
+            String tenVatTu = view.equipmentNameField.getText().trim();
+            int giaTien = Integer.parseInt(view.priceField.getText().replace(",", "").trim()); // Xử lý giá tiền
+            String tinhTrangThietBi = view.equipmentStatusField.getText().trim();
+            String hanSuDung = view.dateOfExpireField.getText().trim();
+            String ngayNhapKho = view.stockInDateField.getText().trim();
+            String nhaCungCap = view.supplierField.getText().trim();
+
+            // Kiểm tra logic theo loại mã vật tư
+            if (maVatTu.startsWith("TB")) {
+                hanSuDung = ""; // Đặt hạn sử dụng rỗng cho TBxxx
+                if (tinhTrangThietBi.isEmpty()) {
+                    JOptionPane.showMessageDialog(view, "Vui lòng nhập tình trạng thiết bị cho mã vật tư TBxxx.");
+                    return;
+                }
+            } else if (maVatTu.startsWith("Thuoc")) {
+                tinhTrangThietBi = ""; // Đặt tình trạng thiết bị rỗng cho Thuocxxx
+                if (hanSuDung.isEmpty()) {
+                    JOptionPane.showMessageDialog(view, "Vui lòng nhập hạn sử dụng cho mã vật tư Thuocxxx.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(view, "Mã vật tư không hợp lệ. Phải bắt đầu bằng TB hoặc Thuoc.");
+                return;
+            }
+
+            // Thêm vào cơ sở dữ liệu
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO Equipment (maVatTu, tenVatTu, giaTien, tinhTrangThietBi, hanSuDung, ngayNhapKho, nhaCungCap) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                preparedStatement.setString(1, maVatTu);
+                preparedStatement.setString(2, tenVatTu);
+                preparedStatement.setInt(3, giaTien); // Lưu trữ giá tiền vào cơ sở dữ liệu
+                preparedStatement.setString(4, tinhTrangThietBi);
+                preparedStatement.setString(5, hanSuDung);
+                preparedStatement.setString(6, ngayNhapKho);
+                preparedStatement.setString(7, nhaCungCap);
+
+                preparedStatement.executeUpdate();
+                JOptionPane.showMessageDialog(view, "Thêm vật tư thành công.");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(view, "Giá tiền phải là số nguyên hợp lệ.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(view, "Lỗi khi thêm vật tư: " + ex.getMessage());
+        }
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            EquipmentManagementView view = new EquipmentManagementView();
+            new EquipmentManagementController(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

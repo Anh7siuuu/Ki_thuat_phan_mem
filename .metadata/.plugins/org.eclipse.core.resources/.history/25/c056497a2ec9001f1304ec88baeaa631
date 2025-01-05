@@ -1,0 +1,157 @@
+package MVC.Controller.QLPK;
+
+import MVC.Model.QLPK.EmployeeManagementModel;
+import MVC.View.QLPK.EmployeeManagementView;
+import MVC.View.QLPK.MainView;
+
+import javax.swing.*;
+import java.sql.*;
+
+public class EmployeeManagementController {
+    private Connection connection;
+    private EmployeeManagementView view;
+
+    public EmployeeManagementController(EmployeeManagementView view) throws SQLException, ClassNotFoundException {
+        this.view = view;
+
+        // Initialize database connection
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyPhongKham;encrypt=true;trustServerCertificate=true";
+        String username = "sa";
+        String pass = "Phucthan@2004";
+        connection = DriverManager.getConnection(url, username, pass);
+
+        loadEmployeeIDs();
+
+        view.searchButton.addActionListener(e -> searchEmployee());
+        view.addButton.addActionListener(e -> addEmployee());
+        view.updateButton.addActionListener(e -> updateEmployee());
+        view.deleteButton.addActionListener(e -> deleteEmployee());
+        view.returnButton.addActionListener(e -> {
+            view.dispose(); // Close the Doctor Management View
+            MainView mainView = new MainView(); // Reopen the Main View
+            new MainController(mainView);
+        });
+    }
+
+    private void loadEmployeeIDs() {
+        try (Statement stm = connection.createStatement()) {
+            ResultSet resultSet = stm.executeQuery("SELECT maNhanVien FROM Employee");
+            view.employeeIDBox.removeAllItems();
+            while (resultSet.next()) {
+                view.employeeIDBox.addItem(resultSet.getString("maNhanVien"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void searchEmployee() {
+        String selectedEmployeeID = (String) view.employeeIDBox.getSelectedItem();
+        if (selectedEmployeeID != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM Employee WHERE maNhanVien = ?")) {
+                preparedStatement.setString(1, selectedEmployeeID);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    view.employeeIDField.setText(resultSet.getString("maNhanVien"));
+                    view.passwordField.setText(resultSet.getString("matKhau"));
+                    view.dobField.setText(resultSet.getString("ngaySinh"));
+                    view.nameField.setText(resultSet.getString("hoTen"));
+                    view.phoneField.setText(resultSet.getString("soDienThoai"));
+                    view.emailField.setText(resultSet.getString("email"));
+                    view.positionField.setText(resultSet.getString("viTri"));
+                    view.salaryField.setText(String.valueOf(resultSet.getInt("luong")));
+                    view.permissionIDField.setText(resultSet.getString("maQuyen"));
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(view, "An error occurred while searching for the employee.");
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void addEmployee() {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO Employee (maNhanVien, matKhau, ngaySinh, hoTen, soDienThoai, email, viTri, luong, maQuyen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            preparedStatement.setString(1, view.employeeIDField.getText());
+            preparedStatement.setString(2, view.passwordField.getText());
+            preparedStatement.setString(3, view.dobField.getText());
+            preparedStatement.setString(4, view.nameField.getText());
+            preparedStatement.setString(5, view.phoneField.getText());
+            preparedStatement.setString(6, view.emailField.getText());
+            preparedStatement.setString(7, view.positionField.getText());
+            preparedStatement.setInt(8, Integer.parseInt(view.salaryField.getText()));
+            preparedStatement.setString(9, view.permissionIDField.getText());
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(view, "Employee added successfully.");
+            loadEmployeeIDs();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(view, "An error occurred while adding the employee.");
+            ex.printStackTrace();
+        }
+    }
+
+    private void updateEmployee() {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE Employee SET matKhau = ?, ngaySinh = ?, hoTen = ?, soDienThoai = ?, email = ?, viTri = ?, luong = ?, maQuyen = ? WHERE maNhanVien = ?")) {
+            preparedStatement.setString(1, view.passwordField.getText());
+            preparedStatement.setString(2, view.dobField.getText());
+            preparedStatement.setString(3, view.nameField.getText());
+            preparedStatement.setString(4, view.phoneField.getText());
+            preparedStatement.setString(5, view.emailField.getText());
+            preparedStatement.setString(6, view.positionField.getText());
+            preparedStatement.setInt(7, Integer.parseInt(view.salaryField.getText()));
+            preparedStatement.setString(8, view.permissionIDField.getText());
+            preparedStatement.setString(9, view.employeeIDField.getText());
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(view, "Employee updated successfully.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(view, "An error occurred while updating the employee.");
+            ex.printStackTrace();
+        }
+    }
+
+    private void deleteEmployee() {
+        String selectedEmployeeID = (String) view.employeeIDBox.getSelectedItem();
+        if (selectedEmployeeID != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM Employee WHERE maNhanVien = ?")) {
+                preparedStatement.setString(1, selectedEmployeeID);
+                preparedStatement.executeUpdate();
+
+                JOptionPane.showMessageDialog(view, "Employee deleted successfully.");
+                loadEmployeeIDs();
+
+                // Clear fields after deletion
+                view.employeeIDField.setText("");
+                view.passwordField.setText("");
+                view.dobField.setText("");
+                view.nameField.setText("");
+                view.phoneField.setText("");
+                view.emailField.setText("");
+                view.positionField.setText("");
+                view.salaryField.setText("");
+                view.permissionIDField.setText("");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(view, "An error occurred while deleting the employee.");
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(view, "No employee selected to delete.");
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            EmployeeManagementView view = new EmployeeManagementView();
+            new EmployeeManagementController(view);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+

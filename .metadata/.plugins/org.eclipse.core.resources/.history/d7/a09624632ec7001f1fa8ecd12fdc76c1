@@ -1,0 +1,105 @@
+package MVC.View.QLPK;
+
+	import javax.swing.*;
+	import java.awt.*;
+
+	public class AppointmentManagementView extends JFrame {
+	    public JTextField appointmentIDField;
+	    public JTextField patientIDField;
+	    public JTextField doctorIDField;
+	    public JTextField dateField;
+	    public JTextField timeField;
+	    public JTextField serviceIDField;
+	    public JButton searchButton;
+	    public JButton addButton;
+	    public JButton updateButton;
+	    public JButton deleteButton;
+
+	    public AppointmentManagementView() {
+	        setTitle("Appointment Management");
+	        setSize(1000, 800);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        Container contentPane = getContentPane();
+
+	        // Labels
+	        JLabel appointmentIDLabel = new JLabel("Appointment ID:");
+	        JLabel patientIDLabel = new JLabel("Patient ID:");
+	        JLabel doctorIDLabel = new JLabel("Doctor ID:");
+	        JLabel dateLabel = new JLabel("Date:");
+	        JLabel timeLabel = new JLabel("Time:");
+	        JLabel serviceIDLabel = new JLabel("Service ID:");
+
+	        // Fields and buttons
+	        appointmentIDField = new JTextField(20);
+	        patientIDField = new JTextField(20);
+	        doctorIDField = new JTextField(20);
+	        dateField = new JTextField(20);
+	        timeField = new JTextField(20);
+	        serviceIDField = new JTextField(20);
+
+	        searchButton = new JButton("Search");
+	        addButton = new JButton("Add");
+	        updateButton = new JButton("Update");
+	        deleteButton = new JButton("Delete");
+
+	        // Layout setup
+	        GroupLayout layout = new GroupLayout(contentPane);
+	        contentPane.setLayout(layout);
+
+	        layout.setAutoCreateGaps(true);
+	        layout.setAutoCreateContainerGaps(true);
+
+	        layout.setHorizontalGroup(layout.createSequentialGroup()
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                .addComponent(appointmentIDLabel)
+	                .addComponent(patientIDLabel)
+	                .addComponent(doctorIDLabel)
+	                .addComponent(dateLabel)
+	                .addComponent(timeLabel)
+	                .addComponent(serviceIDLabel))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                .addComponent(appointmentIDField)
+	                .addComponent(patientIDField)
+	                .addComponent(doctorIDField)
+	                .addComponent(dateField)
+	                .addComponent(timeField)
+	                .addComponent(serviceIDField)
+	                .addGroup(layout.createSequentialGroup()
+	                    .addComponent(searchButton)
+	                    .addComponent(addButton)
+	                    .addComponent(updateButton)
+	                    .addComponent(deleteButton))));
+
+	        layout.setVerticalGroup(layout.createSequentialGroup()
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(appointmentIDLabel)
+	                .addComponent(appointmentIDField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(patientIDLabel)
+	                .addComponent(patientIDField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(doctorIDLabel)
+	                .addComponent(doctorIDField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(dateLabel)
+	                .addComponent(dateField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(timeLabel)
+	                .addComponent(timeField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(serviceIDLabel)
+	                .addComponent(serviceIDField))
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(searchButton)
+	                .addComponent(addButton)
+	                .addComponent(updateButton)
+	                .addComponent(deleteButton)));
+
+	        setVisible(true);
+	    }
+
+	    public static void main(String[] args) {
+	        new AppointmentManagementView();
+	    }
+	}
+}

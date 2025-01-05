@@ -1,0 +1,63 @@
+// MainView.java
+package MVC.View.QLPK;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
+public class MainView extends JFrame {
+
+    private JMenuBar menuBar;
+    private JMenu managementMenu;
+    private JMenuItem doctorManagementItem;
+    private JMenuItem employeeManagementItem;
+    private JMenuItem reportItem;
+    private JMenuItem permissionManagementItem;
+
+    public MainView() {
+        setTitle("Main Menu");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Create Menu Bar
+        menuBar = new JMenuBar();
+
+        // Create "Management" Menu
+        managementMenu = new JMenu("Management");
+
+        // Add Menu Items
+        doctorManagementItem = new JMenuItem("Doctor Management");
+        employeeManagementItem = new JMenuItem("Employee Management");
+        reportItem = new JMenuItem("Report");
+        permissionManagementItem = new JMenuItem("Permission Management");
+
+        managementMenu.add(doctorManagementItem);
+        managementMenu.add(employeeManagementItem);
+        managementMenu.add(reportItem);
+        managementMenu.add(permissionManagementItem);
+
+        // Add Menus to Menu Bar
+        menuBar.add(managementMenu);
+
+        // Set the Menu Bar
+        setJMenuBar(menuBar);
+
+        setVisible(true);
+    }
+
+    public void addDoctorManagementListener(ActionListener listener) {
+        doctorManagementItem.addActionListener(listener);
+    }
+
+    public void addEmployeeManagementListener(ActionListener listener) {
+        employeeManagementItem.addActionListener(listener);
+    }
+
+    public void addReportListener(ActionListener listener) {
+        reportItem.addActionListener(listener);
+    }
+
+    public void addPermissionManagementListener(ActionListener listener) {
+        permissionManagementItem.addActionListener(listener);
+    }
+}

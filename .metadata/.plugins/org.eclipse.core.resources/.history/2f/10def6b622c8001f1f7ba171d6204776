@@ -1,0 +1,65 @@
+package MVC.Controller.QLPK;
+
+import MVC.View.QLPK.MainView;
+import MVC.View.QLPK.DoctorManagementView;
+import MVC.View.QLPK.EmployeeManagementView;
+import MVC.View.QLPK.ReportView;
+import MVC.View.QLPK.PermissionView;
+
+import javax.swing.*;
+
+public class MainController {
+    private MainView mainView;
+
+    public MainController(MainView mainView) {
+        this.mainView = mainView;
+        initController();
+    }
+
+    private void initController() {
+        mainView.addDoctorManagementListener(e -> openDoctorManagementView());
+        mainView.addEmployeeManagementListener(e -> openEmployeeManagementView());
+        mainView.addReportListener(e -> openReportView());
+        mainView.addPermissionManagementListener(e -> openPermissionManagementView());
+    }
+
+    private void openDoctorManagementView() {
+        DoctorManagementView doctorView = new DoctorManagementView();
+        addReturnButton(doctorView);
+        doctorView.setVisible(true);
+    }
+
+    private void openEmployeeManagementView() {
+        EmployeeManagementView employeeView = new EmployeeManagementView();
+        addReturnButton(employeeView);
+        employeeView.setVisible(true);
+    }
+
+    private void openReportView() {
+        ReportView reportView = new ReportView();
+        addReturnButton(reportView);
+        reportView.setVisible(true);
+    }
+
+    private void openPermissionManagementView() {
+        PermissionView permissionView = new PermissionView();
+        addReturnButton(permissionView);
+        permissionView.setVisible(true);
+    }
+
+    // Add a "Return" button to navigate back to the main menu
+    private void addReturnButton(JFrame view) {
+        JButton returnButton = new JButton("Return");
+        returnButton.setBounds(20, 20, 100, 30);
+        returnButton.addActionListener(e -> {
+            view.dispose(); // Close the current window
+            mainView.setVisible(true); // Show the main menu
+        });
+        view.getContentPane().add(returnButton);
+    }
+
+    public static void main(String[] args) {
+        MainView mainView = new MainView();
+        new MainController(mainView);
+    }
+}

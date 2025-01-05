@@ -1,0 +1,154 @@
+package MVC.View.QLPK;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class DoctorManagementView extends JFrame {
+    public JComboBox<String> doctorIDBox;
+    public JTextField doctorIDField;
+    public JTextField passwordField;
+    public JTextField nameField;
+    public JTextField dobField;
+    public JTextField phoneField;
+    public JTextField emailField;
+    public JTextField positionField;
+    public JTextField salaryField;
+    public JTextField permissionIDField;
+    public JButton searchButton;
+    public JButton addButton;
+    public JButton updateButton;
+    public JButton deleteButton;
+
+    public DoctorManagementView() {
+        setTitle("Doctor Management");
+        setSize(1000, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container contentPane = getContentPane();
+        contentPane.setLayout(null);
+
+        // Dropdown for doctor IDs
+        JLabel doctorIDBoxLabel = new JLabel("Doctor ID:");
+        doctorIDBoxLabel.setLocation(30, 50);
+        doctorIDBoxLabel.setSize(100, 30);
+        doctorIDBox = new JComboBox<>();
+        doctorIDBox.setLocation(140, 50);
+        doctorIDBox.setSize(200, 30);
+
+        // Doctor ID field
+        JLabel doctorIDLabel = new JLabel("Doctor ID:");
+        doctorIDLabel.setLocation(30, 100);
+        doctorIDLabel.setSize(100, 30);
+        doctorIDField = new JTextField();
+        doctorIDField.setLocation(140, 100);
+        doctorIDField.setSize(300, 30);
+
+        // Password field
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setLocation(30, 150);
+        passwordLabel.setSize(100, 30);
+        passwordField = new JTextField();
+        passwordField.setLocation(140, 150);
+        passwordField.setSize(300, 30);
+
+        // Name field
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setLocation(30, 200);
+        nameLabel.setSize(100, 30);
+        nameField = new JTextField();
+        nameField.setLocation(140, 200);
+        nameField.setSize(300, 30);
+
+        // DOB field
+        JLabel dobLabel = new JLabel("Date of Birth:");
+        dobLabel.setLocation(30, 250);
+        dobLabel.setSize(100, 30);
+        dobField = new JTextField();
+        dobField.setLocation(140, 250);
+        dobField.setSize(200, 30);
+
+        // Phone field
+        JLabel phoneLabel = new JLabel("Phone:");
+        phoneLabel.setLocation(30, 300);
+        phoneLabel.setSize(100, 30);
+        phoneField = new JTextField();
+        phoneField.setLocation(140, 300);
+        phoneField.setSize(200, 30);
+
+        // Email field
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setLocation(30, 350);
+        emailLabel.setSize(100, 30);
+        emailField = new JTextField();
+        emailField.setLocation(140, 350);
+        emailField.setSize(300, 30);
+
+        // Position field
+        JLabel positionLabel = new JLabel("Position:");
+        positionLabel.setLocation(30, 400);
+        positionLabel.setSize(100, 30);
+        positionField = new JTextField();
+        positionField.setLocation(140, 400);
+        positionField.setSize(300, 30);
+
+        // Salary field
+        JLabel salaryLabel = new JLabel("Salary:");
+        salaryLabel.setLocation(30, 450);
+        salaryLabel.setSize(100, 30);
+        salaryField = new JTextField();
+        salaryField.setLocation(140, 450);
+        salaryField.setSize(300, 30);
+
+        // Permission ID field
+        JLabel permissionIDLabel = new JLabel("Permission ID:");
+        permissionIDLabel.setLocation(30, 500);
+        permissionIDLabel.setSize(100, 30);
+        permissionIDField = new JTextField();
+        permissionIDField.setLocation(140, 500);
+        permissionIDField.setSize(200, 30);
+
+        // Buttons
+        searchButton = new JButton("Search");
+        searchButton.setLocation(400, 50);
+        searchButton.setSize(120, 40);
+
+        addButton = new JButton("Add");
+        addButton.setLocation(400, 100);
+        addButton.setSize(120, 40);
+
+        updateButton = new JButton("Update");
+        updateButton.setLocation(400, 150);
+        updateButton.setSize(120, 40);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.setLocation(400, 200);
+        deleteButton.setSize(120, 40);
+
+        // Add components to content pane
+        contentPane.add(doctorIDBoxLabel);
+        contentPane.add(doctorIDBox);
+        contentPane.add(doctorIDLabel);
+        contentPane.add(doctorIDField);
+        contentPane.add(passwordLabel);
+        contentPane.add(passwordField);
+        contentPane.add(nameLabel);
+        contentPane.add(nameField);
+        contentPane.add(dobLabel);
+        contentPane.add(dobField);
+        contentPane.add(phoneLabel);
+        contentPane.add(phoneField);
+        contentPane.add(emailLabel);
+        contentPane.add(emailField);
+        contentPane.add(positionLabel);
+        contentPane.add(positionField);
+        contentPane.add(salaryLabel);
+        contentPane.add(salaryField);
+        contentPane.add(permissionIDLabel);
+        contentPane.add(permissionIDField);
+        contentPane.add(searchButton);
+        contentPane.add(addButton);
+        contentPane.add(updateButton);
+        contentPane.add(deleteButton);
+
+        setVisible(true);
+    }
+}
