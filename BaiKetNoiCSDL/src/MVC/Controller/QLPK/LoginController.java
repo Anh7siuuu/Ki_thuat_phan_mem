@@ -86,21 +86,30 @@ public class LoginController {
     }
 
     private void navigateToEmployeeView() {
-        loginView.dispose();
+        loginView.dispose(); // Đóng LoginView khi đăng nhập thành công
         EmployeeMainView employeeMainView = new EmployeeMainView();
         employeeMainView.setVisible(true);
+
+        // Khởi tạo lại controller cho EmployeeMainView
+        new EmployeeMainController(employeeMainView); // Khởi tạo controller sau khi mở EmployeeMainView
     }
 
     private void navigateToDoctorView() {
-        loginView.dispose();
-        DoctorMainView doctorMainView = new DoctorMainView(); // Chuyển đến giao diện DoctorMainView
+        loginView.dispose(); // Đóng LoginView khi đăng nhập thành công
+        DoctorMainView doctorMainView = new DoctorMainView();
         doctorMainView.setVisible(true);
+
+        // Khởi tạo lại controller cho DoctorMainView
+        new DoctorMainController(doctorMainView); // Khởi tạo controller sau khi mở DoctorMainView
     }
 
     private void navigateToManagerView() {
-        loginView.dispose();
+        loginView.dispose(); // Đóng LoginView khi đăng nhập thành công
         MainView mainView = new MainView();
         mainView.setVisible(true);
+
+        // Khởi tạo lại controller cho MainView
+        new MainController(mainView); // Khởi tạo controller sau khi mở MainView
     }
 
     private void showMessage(String message) {

@@ -6,6 +6,7 @@ import MVC.View.QLPK.DoctorManagementView;
 import MVC.View.QLPK.EmployeeManagementView;
 import MVC.View.QLPK.PermissionView;
 import MVC.View.QLPK.ReportView;
+import MVC.View.QLPK.LoginView;
 
 public class MainController {
       private MainView mainView;
@@ -57,6 +58,16 @@ public class MainController {
     				e1.printStackTrace();
     			} 
         });
+          
+          mainView.addLogoutListener(e -> {
+              try {
+                  openLoginView();
+              } catch (ClassNotFoundException e1) {
+                  e1.printStackTrace();
+              } catch (SQLException e1) {
+                  e1.printStackTrace();
+              }
+          });
       }
       
       // Đây là phương thức để mở giao diện con
@@ -82,6 +93,22 @@ public class MainController {
           MVC.View.QLPK.ReportView  reportView = new ReportView();
           new ReportController(reportView);
           reportView.setVisible(true);
+      }
+      
+      // Phương thức mở giao diện LoginView khi nhấn Log Out
+      private void openLoginView() throws ClassNotFoundException, SQLException {
+          LoginView loginView = new LoginView(); // Tạo đối tượng LoginView
+
+          // Truyền các tham số cần thiết khi khởi tạo LoginController
+          new LoginController(
+              loginView, 
+              loginView.getUsernameField(), 
+              loginView.getPasswordField(), 
+              loginView.getLoginButton()
+          ); // Khởi tạo controller cho LoginView
+
+          loginView.setVisible(true); // Hiển thị LoginView
+          mainView.dispose();  // Đóng cửa sổ DoctorMainView khi người dùng đăng xuất
       }
     	  
       public static void main(String[] args) {

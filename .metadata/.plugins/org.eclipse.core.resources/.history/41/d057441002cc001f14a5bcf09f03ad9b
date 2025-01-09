@@ -1,0 +1,26 @@
+package MVC.Controller.QLPK;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import MVC.View.QLPK.DoctorMainView;
+
+public class FindEquipmentController {
+    private Connection connection;
+    private DoctorMainView view;
+
+    public EquipmentManagementController(EquipmentManagementView view) throws SQLException, ClassNotFoundException {
+        this.view = view;
+
+        // Initialize database connection
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyPhongKham;encrypt=true;trustServerCertificate=true";
+        String username = "sa";
+        String password = "Quangthai17.";
+        connection = DriverManager.getConnection(url, username, password);
+
+        loadEquipmentTypes();
+
+        view.searchButton.addActionListener(e -> searchEquipment());
+    }
+}

@@ -1,6 +1,7 @@
 package MVC.Controller.QLPK;
 
 import MVC.Model.QLPK.MedicalRecordManagementModel;
+import MVC.View.QLPK.DoctorMainView;
 import MVC.View.QLPK.MedicalRecordManagementView;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ import java.sql.*;
 	        view.addButton.addActionListener(e -> addMedicalRecord());
 	        view.updateButton.addActionListener(e -> updateMedicalRecord());
 	        view.deleteButton.addActionListener(e -> deleteMedicalRecord());
+	        view.returnButton.addActionListener(e -> returnToDoctorMainView());
 	    }
 
 	    private void searchMedicalRecord() {
@@ -106,6 +108,23 @@ import java.sql.*;
 	        } else {
 	            JOptionPane.showMessageDialog(view, "Please enter a Medical Record ID to delete.");
 	        }
+	    }
+	    
+	    private void returnToDoctorMainView() {
+	        try {
+	            connection.close();
+	        } catch (SQLException e) {
+	            showError("Error closing database connection.", e);
+	        }
+	        view.dispose();
+	        DoctorMainView doctorMainView = new DoctorMainView();
+	        new DoctorMainController(doctorMainView);
+	        doctorMainView.setVisible(true);
+	    }
+
+	    private void showError(String message, Exception ex) {
+	        JOptionPane.showMessageDialog(view, message);
+	        ex.printStackTrace();
 	    }
 
 	    public static void main(String[] args) {

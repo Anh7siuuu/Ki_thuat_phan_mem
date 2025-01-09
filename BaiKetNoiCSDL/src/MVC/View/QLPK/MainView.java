@@ -9,10 +9,11 @@ public class MainView extends JFrame {
     private JButton employeeManagementButton;
     private JButton reportButton;
     private JButton permissionManagementButton;
+    private JButton logoutButton; // Nút Log Out
 
     public MainView() {
         setTitle("Main Menu");
-        setSize(400, 400);
+        setSize(400, 500);  // Tăng kích thước của cửa sổ để có thêm chỗ cho nút Log Out
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Sử dụng JPanel với BoxLayout để sắp xếp các nút theo chiều dọc
@@ -20,11 +21,14 @@ public class MainView extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Thêm khoảng cách xung quanh
 
-        // Tạo nút quản lý bác sĩ
+        // Tạo các nút quản lý
         doctorManagementButton = createButton("Quản lý bác sĩ");
         employeeManagementButton = createButton("Quản lý nhân viên");
         reportButton = createButton("Báo cáo");
         permissionManagementButton = createButton("Quản lý quyền");
+        
+        // Tạo nút Log Out
+        logoutButton = createButton("Log Out");
 
         // Thêm các nút vào mainPanel
         mainPanel.add(doctorManagementButton);
@@ -34,6 +38,8 @@ public class MainView extends JFrame {
         mainPanel.add(reportButton);
         mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(permissionManagementButton);
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(logoutButton); // Thêm nút Log Out
 
         // Thêm mainPanel vào JFrame
         add(mainPanel, BorderLayout.CENTER);
@@ -67,5 +73,10 @@ public class MainView extends JFrame {
 
     public void addPermissionListener(ActionListener listener) {
         permissionManagementButton.addActionListener(listener);
+    }
+
+    // Thêm listener cho nút Log Out
+    public void addLogoutListener(ActionListener listener) {
+        logoutButton.addActionListener(listener);
     }
 }

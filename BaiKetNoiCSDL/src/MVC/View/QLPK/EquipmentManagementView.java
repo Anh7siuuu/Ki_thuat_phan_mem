@@ -178,4 +178,7 @@ public class EquipmentManagementView extends JFrame {
             equipmentTypeBox.addItem(name);
         }
     }
+    public static void main(String[] args) {
+    	new EquipmentManagementView();
+    }
 }

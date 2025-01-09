@@ -5,11 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class EmployeeMainView extends JFrame {
+
     private JButton appointmentManagementButton;
     private JButton equipmentManagementButton;
     private JButton invoiceManagementButton;
     private JButton patientManagementButton;
-    
+    private JButton logoutButton;  // Declare the logout button
 
     public EmployeeMainView() {
         setTitle("Main Menu");
@@ -26,6 +27,7 @@ public class EmployeeMainView extends JFrame {
         equipmentManagementButton = createButton("Quản lý thiết bị");
         invoiceManagementButton = createButton("Quản lý hoá đơn");
         patientManagementButton = createButton("Quản lý bệnh nhân");
+        logoutButton = createButton("Logout");  // Initialize the logout button
 
         // Thêm các nút vào mainPanel
         mainPanel.add(appointmentManagementButton);
@@ -35,6 +37,8 @@ public class EmployeeMainView extends JFrame {
         mainPanel.add(invoiceManagementButton);
         mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(patientManagementButton);
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(logoutButton);  // Add the logout button to the panel
 
         // Thêm mainPanel vào JFrame
         add(mainPanel, BorderLayout.CENTER);
@@ -68,5 +72,10 @@ public class EmployeeMainView extends JFrame {
 
     public void addPatientManagementListener(ActionListener listener) {
         patientManagementButton.addActionListener(listener);
+    }
+
+    // Add listener for the Logout button
+    public void addLogoutListener(ActionListener listener) {
+        logoutButton.addActionListener(listener);  // Attach listener to the logout button
     }
 }

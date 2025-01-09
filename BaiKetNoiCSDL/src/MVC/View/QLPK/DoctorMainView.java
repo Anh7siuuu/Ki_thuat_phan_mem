@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DoctorMainView extends JFrame {
-    private JButton MedicalRecordManagemenButton;
- 
+    private JButton MedicalRecordManagementButton;
+    private JButton FindEquipmentButton;
+    private JButton logoutButton; // Nút Log Out
+
     public DoctorMainView() {
         setTitle("Main Menu");
-        setSize(400, 400);
+        setSize(400, 500);  // Tăng kích thước cửa sổ để có thêm chỗ cho nút Log Out
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Sử dụng JPanel với BoxLayout để sắp xếp các nút theo chiều dọc
@@ -17,12 +19,19 @@ public class DoctorMainView extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Thêm khoảng cách xung quanh
 
-        // Tạo nút quản lý bác sĩ
-        MedicalRecordManagemenButton = createButton("Quản lí bệnh án");
+        // Tạo các nút chức năng
+        MedicalRecordManagementButton = createButton("Quản lí bệnh án");
+        FindEquipmentButton = createButton("Tìm kiếm vật tư");
+
+        // Tạo nút Log Out
+        logoutButton = createButton("Log Out");
 
         // Thêm các nút vào mainPanel
-        mainPanel.add(MedicalRecordManagemenButton);
+        mainPanel.add(MedicalRecordManagementButton);
         mainPanel.add(Box.createVerticalStrut(20)); // Khoảng cách giữa các nút
+        mainPanel.add(FindEquipmentButton);
+        mainPanel.add(Box.createVerticalStrut(20)); // Khoảng cách giữa các nút
+        mainPanel.add(logoutButton); // Thêm nút Log Out
 
         // Thêm mainPanel vào JFrame
         add(mainPanel, BorderLayout.CENTER);
@@ -42,11 +51,20 @@ public class DoctorMainView extends JFrame {
     }
 
     // Thêm listener cho từng nút
-    public void addMedicalRecordManagemenListener(ActionListener listener) {
-    	MedicalRecordManagemenButton.addActionListener(listener);
+    public void addMedicalRecordManagementListener(ActionListener listener) {
+        MedicalRecordManagementButton.addActionListener(listener);
     }
-    
+
+    public void addFindEquipmentListener(ActionListener listener) {
+        FindEquipmentButton.addActionListener(listener);
+    }
+
+    // Thêm listener cho nút Log Out
+    public void addLogoutListener(ActionListener listener) {
+        logoutButton.addActionListener(listener);
+    }
+
     public static void main(String[] args) {
-    	new DoctorMainView();
+        new DoctorMainView();
     }
 }

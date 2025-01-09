@@ -1,0 +1,51 @@
+package MVC.View.QLPK;
+
+import MVC.Controller.QLPK.LoginController;
+import javax.swing.*;
+
+public class LoginView extends JFrame {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+
+    public LoginView() {
+        setTitle("Login");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Tạo các thành phần giao diện
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        loginButton = new JButton("Login");
+
+        // Thêm các thành phần vào layout
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Username:"));
+        panel.add(usernameField);
+        panel.add(new JLabel("Password:"));
+        panel.add(passwordField);
+        panel.add(loginButton);
+
+        add(panel);
+    }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
+    public static void main(String[] args) {
+        // Khởi tạo và hiển thị LoginView khi chạy chương trình
+        LoginView loginView = new LoginView();
+        new LoginController(loginView, loginView.getUsernameField(), loginView.getPasswordField(), loginView.getLoginButton());
+        loginView.setVisible(true);
+    }
+}

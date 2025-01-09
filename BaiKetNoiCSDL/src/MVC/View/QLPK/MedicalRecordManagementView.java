@@ -2,6 +2,7 @@ package MVC.View.QLPK;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MedicalRecordManagementView extends JFrame {
     public JTextField medicalRecordIDField;
@@ -12,6 +13,7 @@ public class MedicalRecordManagementView extends JFrame {
     public JButton addButton;
     public JButton updateButton;
     public JButton deleteButton;
+    public JButton returnButton; // Nút return
 
     public MedicalRecordManagementView() {
         setTitle("Medical Record Management");
@@ -84,10 +86,13 @@ public class MedicalRecordManagementView extends JFrame {
         updateButton = new JButton("Update");
         deleteButton = new JButton("Delete");
 
+        // Create the Return button
+        returnButton = new JButton("Return");
         buttonPanel.add(searchButton);
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
+        buttonPanel.add(returnButton);  // Add Return button to the panel
 
         // Add panels to main panel
         mainPanel.add(formPanel, BorderLayout.CENTER);
@@ -96,6 +101,11 @@ public class MedicalRecordManagementView extends JFrame {
         // Set main panel as content pane
         setContentPane(mainPanel);
         setVisible(true);
+    }
+
+    // Method to attach listener to Return button
+    public void addReturnButtonListener(ActionListener listener) {
+        returnButton.addActionListener(listener);
     }
 
     public static void main(String[] args) {
