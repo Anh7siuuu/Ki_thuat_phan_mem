@@ -6,4 +6,5 @@
     <fullyQualifiedTypeName name="husc.edu.vn.model.Database"/>
     <fullyQualifiedTypeName name="MVC.View.QLPK.DoctorManagementView"/>
     <fullyQualifiedTypeName name="MVC.View.QLPK.MedicalRecordManagementView"/>
+    <fullyQualifiedTypeName name="MVC.View.QLPK.LoginView"/>
 </qualifiedTypeNameHistroy>

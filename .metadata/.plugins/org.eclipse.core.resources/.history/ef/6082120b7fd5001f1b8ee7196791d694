@@ -178,6 +178,6 @@ public class DoctorManagementController {
     }
     public static void main(String[] args) {
         DoctorManagementView doctorManagementView = new DoctorManagementView();
-        new DoctorManagementController(doctorManagementView); 
+        new DoctorMainController(doctorManagementView); 
     }
 }

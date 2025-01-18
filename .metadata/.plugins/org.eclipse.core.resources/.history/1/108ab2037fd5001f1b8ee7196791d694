@@ -177,7 +177,7 @@ public class DoctorManagementController {
         ex.printStackTrace();
     }
     public static void main(String[] args) {
-        DoctorManagementView doctorManagementView = new DoctorManagementView();
-        new DoctorManagementController(doctorManagementView); 
+        DoctorMainView doctorMainView = new DoctorMainView();
+        new DoctorMainController(doctorMainView); 
     }
 }

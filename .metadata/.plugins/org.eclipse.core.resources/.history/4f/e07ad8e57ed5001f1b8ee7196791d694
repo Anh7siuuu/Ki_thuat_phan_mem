@@ -2,7 +2,7 @@ package MVC.Controller.QLPK;
 
 import MVC.Model.QLPK.DoctorManagementModel;
 import MVC.View.QLPK.DoctorManagementView;
-import MVC.View.QLPK.DoctorManagementView;
+import MVC.View.QLPK.EmployeeMainView;
 import MVC.View.QLPK.MainView;
 
 import javax.swing.*;
@@ -177,7 +177,7 @@ public class DoctorManagementController {
         ex.printStackTrace();
     }
     public static void main(String[] args) {
-        DoctorManagementView doctorManagementView = new DoctorManagementView();
-        new DoctorManagementController(doctorManagementView); 
+        DoctorMainView doctorMainView = new DoctorMainView();
+        new DoctorMainController(doctorMainView); 
     }
 }
