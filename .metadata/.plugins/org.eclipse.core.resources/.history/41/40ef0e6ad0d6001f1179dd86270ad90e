@@ -10,7 +10,7 @@ public class DoctorMainView extends JFrame {
     private JButton logoutButton; // Nút Log Out
 
     public DoctorMainView() {
-        setTitle("Doctor Menu");
+        setTitle("Main Menu");
         setSize(400, 500);  // Tăng kích thước cửa sổ để có thêm chỗ cho nút Log Out
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

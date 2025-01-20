@@ -67,10 +67,13 @@ public class PermissionView extends JFrame {
         // Add panels to frame
         add(mainPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+        pack(); // Adjust frame size to fit components
         setLocationRelativeTo(null); // Center the frame
         setVisible(true);
-    }
-    public static void main(String[] args) {
-        new PermissionView();
+        // Center the frame on screen
+        setLocationRelativeTo(null);
+        public static void main(String[] args) {
+            new PatientManagementView();
+        }
     }
 }
