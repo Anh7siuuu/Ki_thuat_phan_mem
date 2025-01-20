@@ -22,7 +22,6 @@ public class AppointmentManagementController {
         String pass = "Quangthai17.";
         connection = DriverManager.getConnection(url, username, pass);
           
-        // Gán sự kiện cho các nút bấm, khi bấm nút thì nó sẽ gọi các hàm ra
         view.searchButton.addActionListener(e -> searchAppointment());
         view.addButton.addActionListener(e -> addAppointment());
         view.updateButton.addActionListener(e -> updateAppointment());

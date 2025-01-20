@@ -30,7 +30,7 @@ public class DoctorManagementController {
         }
     }
     
-    
+    // Gan cac bien hanh dong cho cac nut
     private void initListeners() {
         view.searchButton.addActionListener(e -> searchDoctor());
         view.addButton.addActionListener(e -> addDoctor());

@@ -8,8 +8,6 @@ public class EmployeeManagementView extends JFrame {
     public JTextField employeeIDField;
     public JTextField passwordField;
     public JTextField phoneField;
-    public JTextField dobField;
-    public JTextField nameField;
     public JTextField emailField;
     public JTextField positionField;
     public JTextField salaryField;

@@ -6,10 +6,7 @@ import java.awt.*;
 public class EmployeeManagementView extends JFrame {
     public JComboBox<String> employeeIDBox;
     public JTextField employeeIDField;
-    public JTextField passwordField;
-    public JTextField phoneField;
-    public JTextField dobField;
-    public JTextField nameField;
+    public JTextField passwordField;HG    public JTextField phoneField;
     public JTextField emailField;
     public JTextField positionField;
     public JTextField salaryField;

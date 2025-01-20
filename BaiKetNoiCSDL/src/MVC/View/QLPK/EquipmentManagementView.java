@@ -171,7 +171,6 @@ public class EquipmentManagementView extends JFrame {
         returnButton.addActionListener(listener);
     }
 
-    // Method to populate the ComboBox with unique equipment names
     public void populateEquipmentTypeBox(List<String> equipmentNames) {
         equipmentTypeBox.removeAllItems();
         for (String name : equipmentNames) {

@@ -2,6 +2,7 @@ package MVC.Controller.QLPK;
 
 import MVC.Model.QLPK.DoctorManagementModel;
 import MVC.View.QLPK.DoctorManagementView;
+import MVC.View.QLPK.DoctorManagementView;
 import MVC.View.QLPK.MainView;
 
 import javax.swing.*;
@@ -174,5 +175,9 @@ public class DoctorManagementController {
     private void showError(String message, Exception ex) {
         JOptionPane.showMessageDialog(view, message);
         ex.printStackTrace();
+    }
+    public static void main(String[] args) {
+        DoctorManagementView doctorManagementView = new DoctorManagementView();
+        new DoctorManagementController(doctorManagementView); 
     }
 }
